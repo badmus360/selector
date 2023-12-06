@@ -1,25 +1,23 @@
-package com.selector.services;
+package com.selector.services.serviceImpl;
 
 import com.selector.dto.ProductDTO;
-import com.selector.models.Category;
 import com.selector.models.Product;
-import com.selector.repositories.CategoryRepository;
 import com.selector.repositories.ProductRepository;
+import com.selector.services.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ProductService {
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
+    @Override
     public Set<ProductDTO> getProductsByCategory(Long categoryId) {
 
         List<Product> products = productRepository.findProductsByCategoryId(categoryId);
@@ -32,8 +30,6 @@ public class ProductService {
         ProductDTO productDTO = new ProductDTO();
         productDTO.setId(product.getId());
         productDTO.setName(product.getName());
-
-        // Map other fields as needed
 
         return productDTO;
     }

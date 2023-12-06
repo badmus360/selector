@@ -1,7 +1,7 @@
 package com.selector.controllers;
 
 import com.selector.dto.ProductDTO;
-import com.selector.services.ProductService;
+import com.selector.services.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

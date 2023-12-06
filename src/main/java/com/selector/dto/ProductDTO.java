@@ -8,11 +8,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class ProductDTO {
     private Long id;
-
     private String name;
-
-//    private Set<SkillDTO> skills;
 }

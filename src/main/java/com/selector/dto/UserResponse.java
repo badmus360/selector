@@ -1,16 +1,13 @@
 package com.selector.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Set;
-
-@Data
 @Getter
 @Setter
-public class UserDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserResponse {
+    private Long id;
     private String name;
     private String sector;
     private String category;

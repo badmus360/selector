@@ -1,14 +1,11 @@
 package com.selector.controllers;
 
 import com.selector.dto.UserDTO;
-import com.selector.dto.UserRequest;
+import com.selector.dto.UserResponse;
 import com.selector.models.User;
 import com.selector.repositories.UserRepository;
-import com.selector.services.UserService;
-import com.selector.services.UserServiceImpl;
+import com.selector.services.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.ExpressionException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +17,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     private final UserRepository userRepository;
 
     @GetMapping("/all")
-    public List<User> getAllUsers() {
+    public List<UserResponse> getAllUsers() {
         return userService.getAllUsers();
     }
 

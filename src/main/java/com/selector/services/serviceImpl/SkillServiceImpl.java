@@ -1,9 +1,9 @@
-package com.selector.services;
+package com.selector.services.serviceImpl;
 
 import com.selector.dto.SkillDTO;
 import com.selector.models.Skill;
-import com.selector.repositories.ProductRepository;
 import com.selector.repositories.SkillRepository;
+import com.selector.services.service.SkillService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,11 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class SkillService {
+public class SkillServiceImpl implements SkillService {
 
     private final SkillRepository skillRepository;
 
+    @Override
     public Set<SkillDTO> getSkillsByProduct(Long productId) {
 
         List<Skill> skills = skillRepository.findSkillsByProductId(productId);

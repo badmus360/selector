@@ -10,7 +10,6 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Table(name = "products")
 public class Product {
     @Id

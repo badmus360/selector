@@ -1,7 +1,7 @@
 package com.selector.controllers;
 
 import com.selector.dto.SkillDTO;
-import com.selector.services.SkillService;
+import com.selector.services.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +17,7 @@ public class SkillController {
 
     @GetMapping("/products/{productId}")
     public Set<SkillDTO> getSkillsByProducts(@PathVariable Long productId) {
+
         return skillService.getSkillsByProduct(productId);
     }
 }

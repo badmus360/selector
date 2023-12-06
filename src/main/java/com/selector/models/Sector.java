@@ -11,7 +11,6 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Table(name = "sectors")
 public class Sector {
     @Id
