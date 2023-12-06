@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserService {
 
-    ResponseEntity<UserDTO> inputData(UserRequest userDTO);
-
-    ResponseEntity<UserDTO> getData(Long userId);
+//    ResponseEntity<UserDTO> inputData(UserRequest userDTO);
+//
+//    ResponseEntity<UserDTO> getData(Long userId);
 }

@@ -21,13 +21,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
     private String name;
 
-    @NotNull
-    @ManyToMany
-    private Set<Sector> sectors;
+    private String sector;
 
-    @AssertTrue
+    private String category;
+
+    private String product;
+
+    private String skill;
+
     private Boolean terms;
 }

@@ -9,11 +9,13 @@ import com.selector.repositories.SectorRepository;
 import com.selector.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ExpressionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,63 +24,36 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private final SectorRepository sectorRepository;
-
-    @Override
-    public ResponseEntity<UserDTO> inputData(UserRequest userRequest) {
-
-        Set<Sector> sectors = new HashSet<>();
-        userRequest.getSectionIds().forEach(id -> {
-            sectorRepository.findById(id).ifPresent(sectors::add);
-        });
-        User user = User.builder()
-                .name(userRequest.getName())
-                .sectors(sectors)
-                .terms(userRequest.getAgreeTerms())
-                .build();
-
-        User savedUser = userRepository.save(user);
-
-        UserDTO savedUserDTO = mapUserToUserDTO(savedUser);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUserDTO);
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    @Override
-    public ResponseEntity<UserDTO> getData(Long userId) {
+    public User saveUser(UserDTO userDTO) {
+        User user = new User();
+        user.setName(userDTO.getName());
+        user.setSector(userDTO.getSector());
+        user.setCategory(userDTO.getCategory());
+        user.setProduct(userDTO.getProduct());
+        user.setSkill(userDTO.getSkill());
+        user.setTerms(userDTO.isTerms());
 
-        Optional<User> fetchedUser = userRepository.findById(userId);
-
-        if (fetchedUser.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-
-        UserDTO userDTO = mapUserToUserDTO(fetchedUser.get());
-
-        return ResponseEntity.status(HttpStatus.OK).body(userDTO);
+        return userRepository.save(user);
     }
 
-    private UserDTO mapUserToUserDTO(User user) {
+    public User updateUser(Long userId, UserDTO userDTO) {
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ExpressionException("User not found with id: " + userId));
 
-        Set<SectorDTO> sectorDTOs = user.getSectors().stream()
-                .map(this::mapSectorToSectorDTO)
-                .collect(Collectors.toSet());
+        // Update user fields based on userDTO
+        existingUser.setName(userDTO.getName());
+        existingUser.setSector(userDTO.getSector());
+        existingUser.setCategory(userDTO.getCategory());
+        existingUser.setProduct(userDTO.getProduct());
+        existingUser.setSkill(userDTO.getSkill());
+        existingUser.setTerms(userDTO.isTerms());
 
-        return UserDTO.builder()
-                .name(user.getName())
-                .sectors(sectorDTOs)
-                .terms(user.getTerms())
-                .build();
+        return userRepository.save(existingUser);
     }
-
-    private SectorDTO mapSectorToSectorDTO(Sector sector) {
-        return SectorDTO.builder()
-                .id(sector.getId())
-                .name(sector.getName())
-                .build();
-    }
-
 }

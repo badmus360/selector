@@ -12,9 +12,16 @@ import java.util.Set;
 @Getter
 @Setter
 public class UserDTO {
+
     private String name;
 
-    private Set<SectorDTO> sectors;
+    private String sector;
 
-    private Boolean terms;
+    private String category;
+
+    private String product;
+
+    private String skill;
+
+    private boolean terms;
 }
