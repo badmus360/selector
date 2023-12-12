@@ -2,21 +2,21 @@ package com.selector.controllers;
 
 import com.selector.dto.ProductDTO;
 import com.selector.services.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/product")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
-    @GetMapping("/categories/{categoryId}")
-    public Set<ProductDTO> getProductsByCategory(@PathVariable Long categoryId) {
-        return productService.getProductsByCategory(categoryId);
+    @GetMapping("/categories/{name}")
+    public Set<ProductDTO> getProductsByCategory(@PathVariable String name) {
+        return productService.getProductsByCategory(name);
     }
 }

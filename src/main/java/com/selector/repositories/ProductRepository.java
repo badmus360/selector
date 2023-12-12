@@ -12,6 +12,6 @@ import java.util.Set;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query(value = "SELECT * FROM products p WHERE p.category_id = :id", nativeQuery = true)
-    List<Product> findProductsByCategoryId(@Param("id") Long categoryId);
+    @Query(value = "SELECT * FROM products p WHERE p.category_name = :name", nativeQuery = true)
+    List<Product> findProductsByCategoryName(@Param("name") String name);
 }

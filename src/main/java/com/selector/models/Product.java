@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "products")
+@Table(name = "products", indexes = @Index(columnList = "name"))
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +19,9 @@ public class Product {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_name", referencedColumnName = "name")
     private Category category;
 
-    @OneToMany
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Skill> skills;
 }

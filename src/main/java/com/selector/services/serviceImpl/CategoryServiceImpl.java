@@ -29,7 +29,6 @@ public class CategoryServiceImpl implements CategoryService {
             return Collections.emptySet();
         }
 
-
         return sector.getCategories().stream()
                 .map(this::convertCategoryToDto)
                 .collect(Collectors.toSet());

@@ -6,5 +6,5 @@ import java.util.Set;
 
 public interface SkillService {
 
-    Set<SkillDTO> getSkillsByProduct(Long productId);
+    Set<SkillDTO> getSkillsByProduct(String name);
 }

@@ -18,9 +18,9 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Set<ProductDTO> getProductsByCategory(Long categoryId) {
+    public Set<ProductDTO> getProductsByCategory(String name) {
 
-        List<Product> products = productRepository.findProductsByCategoryId(categoryId);
+        List<Product> products = productRepository.findProductsByCategoryName(name);
         return products.stream()
                 .map(this::convertProductToDto)
                 .collect(Collectors.toSet());

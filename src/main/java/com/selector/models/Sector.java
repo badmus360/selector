@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "sectors")
+@Table(name = "sectors", indexes = @Index(columnList = "name"))
 public class Sector {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

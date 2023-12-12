@@ -18,9 +18,9 @@ public class SkillServiceImpl implements SkillService {
     private final SkillRepository skillRepository;
 
     @Override
-    public Set<SkillDTO> getSkillsByProduct(Long productId) {
+    public Set<SkillDTO> getSkillsByProduct(String name) {
 
-        List<Skill> skills = skillRepository.findSkillsByProductId(productId);
+        List<Skill> skills = skillRepository.findSkillsByProductName(name);
 
         return skills.stream()
                 .map(this::convertSkillToDto)

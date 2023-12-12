@@ -3,14 +3,13 @@ package com.selector.controllers;
 
 import com.selector.dto.CategoryDTO;
 import com.selector.services.service.CategoryService;
-import com.selector.services.service.SectorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/category")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class CategoryController {

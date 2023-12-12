@@ -1,20 +1,19 @@
 package com.selector.controllers;
 
-import com.selector.dto.CategoryDTO;
 import com.selector.services.service.SectorService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
-@RequestMapping("/api/sectors")
+@RequestMapping("/api/sector")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class SectorController {
-
 
     private final SectorService sectorService;
 

@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "categories")
+@Table(name = "categories", indexes = @Index(columnList = "name"))
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class Category {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "sector_id")
+    @JoinColumn(name = "sector_name", referencedColumnName = "name")
     private Sector sector;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)

@@ -2,22 +2,22 @@ package com.selector.controllers;
 
 import com.selector.dto.SkillDTO;
 import com.selector.services.service.SkillService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/skills")
+@RequestMapping("/api/skill")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class SkillController {
 
-    @Autowired
-    private SkillService skillService;
+    private final SkillService skillService;
 
-    @GetMapping("/products/{productId}")
-    public Set<SkillDTO> getSkillsByProducts(@PathVariable Long productId) {
+    @GetMapping("/products/{name}")
+    public Set<SkillDTO> getSkillsByProducts(@PathVariable String name) {
 
-        return skillService.getSkillsByProduct(productId);
+        return skillService.getSkillsByProduct(name);
     }
 }

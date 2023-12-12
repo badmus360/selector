@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Long> {
-
-    @Query(value = "SELECT * FROM skills s WHERE s.product_id = :id", nativeQuery = true)
-    List<Skill> findSkillsByProductId(@Param("id") Long productId);
+    @Query(value = "SELECT * FROM skills s WHERE s.product_name = :name", nativeQuery = true)
+    List<Skill> findSkillsByProductName(@Param("name") String name);
 }

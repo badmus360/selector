@@ -5,6 +5,7 @@ import com.selector.dto.UserResponse;
 import com.selector.models.*;
 import com.selector.repositories.*;
 import com.selector.services.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.expression.ExpressionException;
@@ -18,9 +19,6 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final CategoryRepository categoryRepository;
-    private final ProductRepository productRepository;
-    private final SkillRepository skillRepository;
 
     @Override
     public List<UserResponse> getAllUsers() {
@@ -29,19 +27,8 @@ public class UserServiceImpl implements UserService {
         return users.stream().map(user -> {
             UserResponse userResponse = new UserResponse();
             System.out.println(user.getCategory());
-            Category category = categoryRepository.findById(Long.parseLong(user.getCategory())).orElse(null);
-            Product product = productRepository.findById(Long.parseLong(user.getProduct())).orElse(null);
-            Skill skill = skillRepository.findById(Long.parseLong(user.getSkill())).orElse(null);
+
             BeanUtils.copyProperties(user, userResponse);
-
-            assert category != null;
-            userResponse.setCategory(category.getName());
-
-            assert product != null;
-            userResponse.setProduct(product.getName());
-
-            assert skill != null;
-            userResponse.setSkill(skill.getName());
 
             return userResponse;
         }).collect(Collectors.toList());
@@ -62,17 +49,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(Long userId, UserDTO userDTO) {
+
+        System.out.println("initiates...." + userDTO);
         User existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new ExpressionException("User not found with id: " + userId));
 
-        // Update user fields based on userDTO
-        existingUser.setName(userDTO.getName());
-        existingUser.setSector(userDTO.getSector());
-        existingUser.setCategory(userDTO.getCategory());
-        existingUser.setProduct(userDTO.getProduct());
-        existingUser.setSkill(userDTO.getSkill());
+        if(userDTO.getName() != null && !userDTO.getName().isEmpty())
+            existingUser.setName(userDTO.getName());
+
+        if(userDTO.getSector() != null && !userDTO.getSector().isEmpty())
+            existingUser.setSector(userDTO.getSector());
+
+        if(userDTO.getCategory() != null && !userDTO.getCategory().isEmpty())
+            existingUser.setCategory(userDTO.getCategory());
+
+        if(userDTO.getProduct() != null && !userDTO.getProduct().isEmpty())
+            existingUser.setProduct(userDTO.getProduct());
+
+        if(userDTO.getSkill() != null && !userDTO.getSkill().isEmpty())
+            existingUser.setSkill(userDTO.getSkill());
+
         existingUser.setTerms(userDTO.isTerms());
 
         return userRepository.save(existingUser);
+    }
+
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
     }
 }
